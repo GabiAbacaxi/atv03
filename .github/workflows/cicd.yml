@@ -3,11 +3,6 @@ name: CI/CD - Calculadora
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
-
-permissions:
-  contents: read
 
 jobs:
   build-e-testes:
@@ -17,17 +12,17 @@ jobs:
       - name: Baixar o código
         uses: actions/checkout@v7
 
-      - name: Configurar Java 25
+      - name: Configurar ambiente java
         uses: actions/setup-java@v6
         with:
           distribution: 'temurin'
-          java-version: '21'
+          java-version: '25'
           cache: maven
 
       - name: Executar testes e gerar JAR
         run: mvn -B clean verify
 
-      - name: Publicar artefato
+      - name: Publicar artefato jar
         uses: actions/upload-artifact@v7
         with:
           name: calculadora-jar
